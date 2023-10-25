@@ -1,4 +1,26 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
 
-module.exports = nextConfig
+ module.exports = {
+  experimental: {
+    serverActions: true,
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'robohash.org',
+        port: '',
+        pathname: '/**'
+      },
+    ],
+  },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/users',
+        permanent: true,
+      },
+    ]
+  },
+}
