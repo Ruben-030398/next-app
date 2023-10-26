@@ -4,6 +4,11 @@ import React from 'react'
 import { columns } from './columns';
 import ToolbarActions from '@/components/toolbar-actions';
 import Table from '@/components/table'
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Users Table'
+}
 
 const Users = async () => {
   const usersData = await getUsers();

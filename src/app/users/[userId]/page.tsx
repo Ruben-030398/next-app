@@ -1,8 +1,13 @@
 import { getUserById } from '@/api/get-user-by-id';
 import { getUsers } from '@/api/get-users';
 import { AtSign, BookUser, Building2, Phone, User2 } from 'lucide-react';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import React from 'react'
+
+export type UserPageProps = {
+  params: { userId: string }
+}
 
 export async function generateStaticParams() {
   const posts = await getUsers()
@@ -12,7 +17,20 @@ export async function generateStaticParams() {
   }))
 }
 
-const UserPage = async ({ params }: { params: { userId: string } }) => {
+export async function generateMetadata(
+  { params }: UserPageProps,
+): Promise<Metadata> {
+  const id = params.userId
+
+  const user = await getUserById(id)
+ 
+  return {
+    title: user.name,
+    icons: [user.avatar]
+  }
+}
+
+const UserPage = async ({ params }: UserPageProps) => {
   const { userId } = params;
 
   const userData = await getUserById(userId);
